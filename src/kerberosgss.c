@@ -29,6 +29,13 @@ static void set_gss_error(OM_uint32 err_maj, OM_uint32 err_min);
 extern PyObject *GssException_class;
 extern PyObject *KrbException_class;
 
+#if defined(__APPLE__)
+void *mempcpy(void *dest, const void *src, size_t n) {
+   memcpy(dest, src, n);
+   return dest + n;
+}
+#endif
+
 char* server_principal_details(const char* service, const char* hostname)
 {
     char match[1024];
